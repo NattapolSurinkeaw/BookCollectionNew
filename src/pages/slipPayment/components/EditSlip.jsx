@@ -20,7 +20,7 @@ const style = {
 };
 
 
-export default function CreateSlip({ open, handleClose, setRefresh }) {
+export default function EditSlip({ open, handleClose, setRefresh }) {
   const [volumes, setVolumes] = useState([]);
   const [modalVolume, setModalVolume] = useState(false);
   const [slcVolume, setSlcVolume] = useState([]);

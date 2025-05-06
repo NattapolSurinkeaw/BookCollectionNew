@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { getMangaAll } from '../../services/manga.service';
 import { Link } from 'react-router-dom';
 import CreateManga from './components/CreateManga';
@@ -6,98 +6,99 @@ import { getPublishAll } from '../../services/publish.service';
 import { img_path } from '../../store/setting';
 
 export default function Mangas() {
-    const [mangas, setMangas] = useState([]);
-    const [publish, setPublish] = useState([]);
-    const [createModal, setCreateModal] = useState(false);
-    const [refresh, setRefresh] = useState(false);
-    const [selectPublish, setSelectPublish] = useState("");
-    const [searchtitle, setSearchTitle] = useState("");
+  const [mangas, setMangas] = useState([]);
+  const [publish, setPublish] = useState([]);
+  const [createModal, setCreateModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+  const [selectPublish, setSelectPublish] = useState("");
+  const [searchtitle, setSearchTitle] = useState("");
 
-    const handleClose = () => setCreateModal(false);
+  const handleClose = () => setCreateModal(false);
 
-    useEffect(() => {
-      getMangaAll().then((res) => {
-        setMangas(res.mangas)
-      })
-    }, [refresh])
+  useEffect(() => {
+    getMangaAll().then((res) => {
+      setMangas(res.mangas)
+    })
+  }, [refresh])
 
-    useEffect(() => {
-      getPublishAll().then((res) => {
-        setPublish(res.publish)
-      })
-    }, [])
+  useEffect(() => {
+    getPublishAll().then((res) => {
+      setPublish(res.publish)
+    })
+  }, [])
 
-    const filterManga = Array.isArray(mangas)
+  const filterManga = Array.isArray(mangas)
     ? mangas.filter((manga) => {
-        const matchPublish =
-          selectPublish === "" || manga.publish_id === parseInt(selectPublish);
+      const matchPublish =
+        selectPublish === "" || manga.publish_id === parseInt(selectPublish);
 
-        const matchTitle =
-          searchtitle === "" ||
-          [manga.title_TH, manga.title_EN, manga.title_AT]
-            .filter(Boolean) // กัน null หรือ undefined
-            .some((title) =>
-              title.toLowerCase().includes(searchtitle.toLowerCase())
-            );
+      const matchTitle =
+        searchtitle === "" ||
+        [manga.title_TH, manga.title_EN, manga.title_AT]
+          .filter(Boolean) // กัน null หรือ undefined
+          .some((title) =>
+            title.toLowerCase().includes(searchtitle.toLowerCase())
+          );
 
-        return matchPublish && matchTitle;
-      })
+      return matchPublish && matchTitle;
+    })
     : [];
 
 
   return (
-    <div>
-      <div>
+    <div className='max-sm:mb-[40px]'>
+      <div className='flex max-sm:flex-col gap-4'>
+        {/* บรรทัดแรก - ชื่อและช่องค้นหา */}
+        <div className='flex justify-between w-full'>
+          <h1 className='text-xl sm:text-2xl font-bold whitespace-nowrap'>Manga</h1>
 
-      </div>
-
-      <div className='flex justify-between'>
-        <h1 className='text-2xl font-bold'>Manga</h1>
-        <div className='flex gap-4 h-10'>
-          <div className='flex gap-4'>
-            <div className="flex w-72">
-              <input 
+          <div className="mr-4">
+            <input
               value={searchtitle}
               onChange={(e) => setSearchTitle(e.target.value)}
-              type="text" placeholder="Search manga..." 
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-1 focus:ring-primary" />
-              <button className="bg-[#3498db] text-white px-4 py-2 rounded-r hover:bg-blue-600 transition">
-                <i className="fas fa-search"></i>
-              </button>
-            </div>
-
-            <select 
-              onChange={(e) => setSelectPublish(e.target.value)}
-              value={selectPublish}
-              id="countries" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 [#34495e]:bg-gray-700 [#34495e]:border-gray-600 [#34495e]:placeholder-gray-400 [#34495e]:text-white [#34495e]:focus:ring-blue-500 [#34495e]:focus:border-blue-500">
-              <option value="">เลือกสำนักพิมพ์</option>
-              {
-                publish?.map((ph) => (
-                  <option value={ph.id}>{ph.title_TH}</option>
-
-                ))
-              }
-            </select>
+              type="text"
+              placeholder="Search manga..."
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-l focus:outline-none focus:ring-1 focus:ring-primary text-sm sm:text-base"
+            />
+            <button className="bg-[#3498db] text-white px-4 py-2 rounded-r hover:bg-blue-600 transition">
+              <i className="fas fa-search"></i>
+            </button>
           </div>
+        </div>
 
-          <button 
+        {/* บรรทัดที่สอง - Select และปุ่ม */}
+        <div className='flex gap-4 w-1/3 max-sm:w-full'>
+          <select
+            onChange={(e) => setSelectPublish(e.target.value)}
+            value={selectPublish}
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 [#34495e]:bg-gray-700 [#34495e]:border-gray-600 [#34495e]:placeholder-gray-400 [#34495e]:text-white [#34495e]:focus:ring-blue-500 [#34495e]:focus:border-blue-500"
+          >
+            <option value="">เลือกสำนักพิมพ์</option>
+            {publish?.map((ph) => (
+              <option value={ph.id}>{ph.title_TH}</option>
+            ))}
+          </select>
+
+          <button
             onClick={(e) => setCreateModal(true)}
-            type="button" className="h-full text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 [#34495e]:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-          > 
-          <i className="fas fa-plus mr-2"></i>Create</button>
+            type="button"
+            className="w-full sm:w-auto text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 [#34495e]:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+          >
+            Create
+          </button>
         </div>
       </div>
       {
         createModal && (
-          <CreateManga 
-            open={createModal} 
-            handleClose={handleClose} 
-            setRefresh={setRefresh}  
+          <CreateManga
+            open={createModal}
+            handleClose={handleClose}
+            setRefresh={setRefresh}
             publish={publish}
           />
         )
       }
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
         {
           filterManga && filterManga.length > 0 ? (
             filterManga.map((mg) => (
@@ -127,8 +128,8 @@ export default function Mangas() {
               </div>
             ))
           ) : (
-              <p>ไม่มีข้อมูล Manga</p>
-        )}
+            <p>ไม่มีข้อมูล Manga</p>
+          )}
       </div>
     </div>
   )

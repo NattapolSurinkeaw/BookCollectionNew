@@ -9,7 +9,6 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 700,
     bgcolor: 'background.paper',
     borderRadius: '5px',
     boxShadow: 24,
@@ -42,7 +41,7 @@ export default function AddVolume({openVol, handleCloseVol, volumes, handleSelec
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-        <Box sx={style}>
+        <Box sx={style} className="w-[800px] max-sm:w-[90%]">
             <div>
                 <button
                     className='bg-gray-300 w-20 rounded-l border'

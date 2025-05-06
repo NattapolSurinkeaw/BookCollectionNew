@@ -9,7 +9,6 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 700,
     bgcolor: 'background.paper',
     borderRadius: '5px',
     boxShadow: 24,
@@ -49,7 +48,7 @@ export default function CreateManga({ open, handleClose, setRefresh, publish }) 
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style} className="p-6 max-w-2xl mx-auto bg-white rounded-lg shadow-xl">
+            <Box sx={style} className="p-6 max-w-2xl mx-auto bg-white rounded-lg shadow-xl w-[700px] max-sm:w-[90%]">
                 <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-3">Add New Manga</h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

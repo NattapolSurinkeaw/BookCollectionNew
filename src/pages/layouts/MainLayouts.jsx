@@ -12,7 +12,7 @@ export default function MainLayouts() {
 
         <div className="flex flex-col w-full overflow-auto">
           <Navbar/>
-          <div className="w-full h-[calc(100vh-78px)] overflow-y-auto xl:p-6 p-6 mt-2">
+          <div className="w-full h-[calc(100vh-78px)] overflow-y-auto xl:p-6 p-6 max-sm:p-5 mt-2">
             <Outlet />
           </div>
         </div>

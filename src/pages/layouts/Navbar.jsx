@@ -20,7 +20,7 @@ export default function Navbar() {
               <div className="flex items-center">
                 <img
                   className="h-8 w-8 rounded-full border-2 border-white"
-                  src="/public/images/user.jpg"
+                  src="/images/user.jpg"
                   alt="User profile"
                 />
                 <span className="ml-2 text-white text-sm font-medium hidden md:inline">Admin</span>

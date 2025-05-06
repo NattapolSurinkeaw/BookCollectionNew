@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react"
 import CreateSlip from "./components/CreateSlip";
+import EditSlip from "./components/EditSlip";
 import { getSlipPayment } from "../../services/slippayment.service";
 import { Link } from "react-router-dom";
 
 export default function SlipPayment() {
   const [slips, setSlips] = useState([]);
   const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
+
 
   useEffect(() => {
     const fetchData = async() => {
@@ -19,13 +25,21 @@ export default function SlipPayment() {
     fetchData()
   }, [refresh])
 
-  console.log(slips)
+  const handleEdit = (id) => {
+    console.log(id)
+    handleOpenEdit()
+  }
 
   return (
     <div>
       {
         open && (
           <CreateSlip open={open} handleClose={handleClose} setRefresh={setRefresh} />
+        )
+      }
+      {
+        openEdit && (
+          <EditSlip open={openEdit} handleClose={handleCloseEdit} setRefresh={setRefresh} />
         )
       }
       <div className="flex justify-between">
@@ -36,7 +50,7 @@ export default function SlipPayment() {
           create
         </button>
       </div>
-      <div className="p-6 max-w-6xl">
+      <div className="p-6 max-w-6xl max-sm:p-0">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">Purchase History</h1>
 
         <div className="bg-white rounded-xl shadow-md overflow-hidden">

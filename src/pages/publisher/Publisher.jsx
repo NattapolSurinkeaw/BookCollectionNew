@@ -19,7 +19,7 @@ export default function Publisher() {
     fetchData()
   }, [refresh])
   return (
-    <div className='p-6 max-w-6xl'>
+    <div className='p-6 max-w-6xl max-sm:p-0'>
       <div className='flex justify-between items-center mb-6'>
         <h1 className='text-2xl font-bold text-gray-800'>Publisher</h1>
         <button
@@ -33,7 +33,7 @@ export default function Publisher() {
       {openCreateModel && (
         <CreatePublish open={openCreateModel}  handleClose={handleClose} setRefresh={setRefresh} />
       )}
-      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+      <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-sm:mb-[40px]'>
         {publisher?.length > 0 ? (
           publisher.map((publish) => (
             <div key={publish.id} className='rounded-xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all'>

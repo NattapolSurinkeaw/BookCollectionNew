@@ -19,7 +19,7 @@ export default function Favorite() {
     <div className="">
       <h1 className="text-3xl font-bold text-gray-800 mb-8 pb-2 border-b-2 border-gray-300">Favorite</h1>
 
-      {volumes.length > 0 ? (
+      {Array.isArray(volumes) && volumes.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
           {volumes.map((vol) => (
             <div
